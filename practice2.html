@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+
+<body>
+
+  <div id="app">
+    <span>Message: {{ msg }}</span>
+    <p>Using mustaches: {{ rawHtml }}</p>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    <button v-bind:disabled="isButtonDisabled">Button</button>
+  </div>
+
+  <div id="app2">
+    <span v-once>这个将不会改变: {{ msg }}</span>
+  </div>
+
+</body>
+
+<script>
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      msg: 'Hello Vue!',
+      rawHtml: '<span style="color:red">This should be red.</span>',
+      isButtonDisabled: true
+    }
+  })
+
+  var app2 = new Vue({
+    el: '#app2',
+    data: {
+      msg: 'Hello Vue 2!'
+    }
+  })
+
+</script>
+
+</html>
