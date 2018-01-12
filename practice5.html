@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+
+<body>
+
+  <div id="example">
+
+    <div v-bind:class="{ active: isActive }">
+      <p>Original message: "{{ message }}"</p>
+    </div>
+
+    <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">
+      <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    </div>
+
+    <div v-bind:class="classObject">
+      <p>This moment: "{{ now }}"</p>
+    </div>
+
+    <div v-bind:class="classObject2">
+      <p>Reversed message: "{{ reversedMessage1() }}"</p>
+    </div>
+
+    <div v-bind:class="[activeClass, errorClass]">
+      <p>Original message: "{{ message }}"</p>
+    </div>
+
+    <div v-bind:class="[isActive ? activeClass : '', errorClass]">
+      <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    </div>
+
+    <div v-bind:class="[{ active: isActive }, errorClass]">
+      <p>This moment: "{{ now }}"</p>
+    </div>
+
+    <my-component class="baz boo"></my-component>
+
+    <my-component v-bind:class="{ active: isActive }"></my-component>
+
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">你好</div>
+
+    <div v-bind:style="styleObject">大家好</div>
+
+    <div v-bind:style="[baseStyles, overridingStyles]">你好</div>
+
+    <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">大家好</div>
+
+  </div>
+
+</body>
+
+<script>
+
+  Vue.component('my-component', {
+    template: '<p class="foo bar">Hi</p>'
+  })
+
+  var vm = new Vue({
+    el: '#example',
+    data: {
+      message: 'Hello',
+      isActive: true,
+      error: null,
+      hasError: false,
+      activeClass: 'active',
+      errorClass: 'text-danger',
+      activeColor: 'red',
+      fontSize: 30,
+      baseStyles: {
+        color: 'red',
+      }, 
+      overridingStyles: {
+        fontSize: '13px',
+      }, 
+      styleObject: {
+        color: 'red',
+        fontSize: '13px'
+      },
+      classObject: {
+        active: true,
+        'text-danger': false
+      }
+    },
+    computed: {
+      // 计算属性的 getter
+      reversedMessage: function () {
+        // `this` 指向 vm 实例
+        return this.message.split('').reverse().join('')
+      },
+      now: function () {
+        return Date.now()
+      },
+      classObject2: function () {
+        return {
+          active: this.isActive && !this.error,
+          'text-danger': this.error && this.error.type === 'fatal'
+        }
+      }
+    },
+    methods: {
+      reversedMessage1: function () {
+        return this.message.split('').reverse().join('')
+      }
+    }
+  })
+
+</script>
+
+</html>
