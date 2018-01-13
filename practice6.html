@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+
+<body>
+
+  <div id="demo">
+    <h1 v-if="ok">Yes</h1>
+    <h1 v-else>No</h1>
+    <hr />
+    <template v-if="ok">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+
+    <div v-if="Math.random() > 0.5">
+      Now you see me
+    </div>
+    <div v-else>
+      Now you don't
+    </div>
+
+    <template v-if="loginType === 'username'">
+      <label>Username</label>
+      <input placeholder="Enter your username">
+    </template>
+    <template v-else>
+      <label>Email</label>
+      <input placeholder="Enter your email address">
+    </template>
+    <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username" key="username-input">
+      </template>
+      <template v-else>
+        <label>Email</label>
+        <input placeholder="Enter your email address" key="email-input">
+      </template>
+    <button @click="shift">切换</button>
+    <hr>
+    <h1 v-show="ok">Hello!</h1>
+
+  </div>
+
+</body>
+
+<script>
+
+  var vm = new Vue({
+    el: '#demo',
+    data: {
+      ok: true,
+      loginType: 'username'
+    },
+    methods: {
+      shift: function () {
+        if(this.loginType == 'username') {
+          this.loginType = '';
+        } else {
+          this.loginType = 'username';
+        }
+      }
+    }
+  })
+
+  Vue.component('todo-item', {
+    template: '<li>这是个待办项</li>'
+  })
+
+</script>
+
+</html>
