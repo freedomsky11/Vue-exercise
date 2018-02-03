@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+
+</head>
+
+<body>
+
+  <!-- <div id="example">
+    <my-component></my-component>
+  </div> -->
+
+  <div id="example-2">
+    <child my-message="hello!"></child>
+  </div>
+
+</body>
+<script>
+  // Vue.component('my-component', {
+  //   template: '<span>{{ message }}</span>',
+  //   data: {
+  //     message: 'hello'
+  //   }
+  // })
+
+  // new Vue({
+  //   el: '#example'
+  // })
+
+  Vue.component('child', {
+    // 在 JavaScript 中使用 camelCase
+    props: ['myMessage'],
+    template: '<span>{{ myMessage }}</span>'
+  })
+
+  new Vue({
+    el: '#example-2'
+  })
+</script>
+
+</html>

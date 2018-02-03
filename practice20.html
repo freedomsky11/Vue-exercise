@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+
+</head>
+
+<body>
+
+  <div id="example-2">
+
+    <comp initial-counter="10"></comp>
+
+    <hr>
+
+    <comp2 size="ABC"></comp2>
+
+  </div>
+
+</body>
+<script>
+  Vue.component('comp', {
+    props: ['initialCounter'],
+    data: function () {
+      return {
+        counter: this.initialCounter
+      }
+    },
+    template: '<span>{{ counter }}</span>'
+  });
+
+  Vue.component('comp2', {
+    props: ['size'],
+    computed: {
+      normalizedSize: function () {
+        return this.size.trim().toLowerCase()
+      }
+    },
+    template: '<span>{{ normalizedSize }}</span>'
+  });
+
+  new Vue({
+    el: '#example-2',
+    data: {
+      todo: {
+        text: 'Learn Vue',
+        isComplete: false
+      }
+    }
+  })
+</script>
+
+</html>

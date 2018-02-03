@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+
+</head>
+
+<body>
+
+  <div id="example-2">
+    <!-- 传递了一个字符串 "1" -->
+    <comp some-prop="1"></comp>
+
+    <hr>
+
+    <!-- 传递真正的数值 -->
+    <comp v-bind:some-prop="1"></comp>
+
+  </div>
+
+</body>
+<script>
+  Vue.component('comp', {
+    // 在 JavaScript 中使用 camelCase
+    props: ['someProp'],
+    template: '<span>{{ someProp }}</span>'
+  })
+
+  new Vue({
+    el: '#example-2',
+    data: {
+      todo: {
+        text: 'Learn Vue',
+        isComplete: false
+      }
+    }
+  })
+</script>
+
+</html>
