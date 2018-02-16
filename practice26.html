@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+  <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.js"></script>
+
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+
+</head>
+
+<body>
+
+  <div id="counter-event-example">
+      <p>{{ bar }}</p>
+      <my-component :foo.sync="bar"></my-component>
+  </div>
+
+</body>
+<script>
+
+  Vue.component('my-component', {
+    props: ['foo'],
+    template: '<p @click="update">{{ foo }}</p>',
+    methods: {
+      update: function() {
+        this.foo = 'new world!';
+        this.$emit('update:foo', this.foo)
+      }
+    }
+  })
+
+  new Vue({
+    el: '#counter-event-example',
+    data: {
+      total: 0,
+      bar: 'hello world!'
+    },
+    methods: {
+      doTheThing: function () {
+        alert("成功！")
+      }
+    }
+  })
+
+</script>
+
+</html>

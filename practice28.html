@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+  <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.js"></script>
+
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+
+</head>
+
+<body>
+
+  <div id="counter-event-example">
+    <currency-input v-model="price"></currency-input>
+  </div>
+
+</body>
+<script>
+  Vue.component('currency-input', {
+    template: '\
+    <span>\
+      $\
+      <input\
+        ref="input"\
+        v-bind:value="value"\
+        v-on:input="updateValue($event.target.value)"\
+      >\
+    </span>\
+  ',
+    props: ['value'],
+    methods: {
+      // 不是直接更新值，而是使用此方法来对输入值进行格式化和位数限制
+      updateValue: function (value) {
+        var formattedValue = value
+          // 删除两侧的空格符
+          .trim()
+          // 保留 2 位小数
+          .slice(
+            0,
+            value.indexOf('.') === -1 ?
+            value.length :
+            value.indexOf('.') + 3
+          )
+        // 如果值尚不合规，则手动覆盖为合规的值
+        if (formattedValue !== value) {
+          this.$refs.input.value = formattedValue
+        }
+        // 通过 input 事件带出数值
+        this.$emit('input', Number(formattedValue))
+      }
+    }
+  })
+
+  new Vue({
+    el: '#counter-event-example',
+    data: {
+      total: 0,
+      bar: 'hello world!',
+      price: 0
+    }
+  })
+</script>
+
+</html>
