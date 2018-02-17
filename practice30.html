@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/974aa47f8f9c5361c5233bd56be37db8ed765a09/currency-validator.js"></script>
+
+</head>
+
+<body>
+
+  <div id="app">
+    <my-checkbox v-model="foo" value="some value"></my-checkbox>
+  </div>
+
+</body>
+<script>
+  Vue.component('my-checkbox', {
+    model: {
+      prop: 'checkedNames',
+      event: 'change'
+    },
+    props: {
+      checkedNames: Array,
+      // 这样就允许拿 `value` 这个 prop 做其它事了
+      value: String
+    },
+    template: '\
+    <div>\
+      <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">\
+      <label for="jack">Jack</label>\
+      <input type="checkbox" id="john" value="John" v-model="checkedNames">\
+      <label for="john">John</label>\
+      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">\
+      <label for="mike">Mike</label>\
+      <br>\
+      <span>Checked names: {{ checkedNames }}</span>\
+    </div>\
+  ',
+  })
+
+  new Vue({
+    el: '#app',
+    data: {
+      foo: []
+    }
+  })
+</script>
+
+</html>
