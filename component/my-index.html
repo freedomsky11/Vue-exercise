@@ -16,23 +16,30 @@
       <task-menu v-bind:menus="menus" v-on:click="onSelected"></task-menu>
 
       <!-- TODO: 如何把这部分抽离成一个 task-list 组件 -->
-      <div class="col-md-6" v-if="currentMenuTag === 'working'">
-        <div class="list-group">
-          <task-item v-bind:item="item" v-bind:index="index" v-bind:tag="'working'" v-for="(item, index) in tasks" v-on:click="onCompleted(index)"></task-item>
-        </div>
-      </div>
+      <task-list v-bind:tasks="tasks" v-bind:tag="currentMenuTag" v-on:click-select="onCompleted"></task-list>
 
-      <div class="col-md-6" v-else>
-        <div class="list-group">
-          <task-item v-bind:item="item" v-bind:index="index" v-bind:tag="'completed'" v-for="(item, index) in tasks"></task-item>
-        </div>
-      </div>
-    </div>
   </div>
 </body>
 
 </html>
 <script>
+
+  Vue.component('task-list', {
+    props: ['tasks', 'tag'],
+    template: `
+    <div class="col-md-6">
+        <div class="list-group">
+          <task-item v-bind:item="item" v-bind:index="index" v-bind:tag="tag" v-for="(item, index) in tasks" v-on:click="onCompleted(index)"></task-item>
+        </div>
+      </div>
+    </div>
+    `,
+    methods: {
+      onCompleted(index) {
+        this.$emit('click-select', index);
+      }
+    }
+  })
 
   Vue.component('task-menu', {
     props: ['menus'],
@@ -49,7 +56,7 @@
       }
     }
   })
-  
+
   Vue.component('task-item', {
     props: ['item', 'index', 'tag'],
     template: `
