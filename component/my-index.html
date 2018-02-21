@@ -13,11 +13,7 @@
   <div id="app" class="container">
     <div class="row justify-content-md-center mt-5">
       <!-- TODO: 如何把 menu 抽离成 组件 -->
-      <div class="col-md-1">
-        <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-          <button type="button" class="btn btn-secondary" v-on:click="onSelected(item.tag)" v-for="item in menus">{{ item.text}}</button>
-        </div>
-      </div>
+      <task-menu v-bind:menus="menus" v-on:click="onSelected"></task-menu>
 
       <!-- TODO: 如何把这部分抽离成一个 task-list 组件 -->
       <div class="col-md-6" v-if="currentMenuTag === 'working'">
@@ -37,6 +33,23 @@
 
 </html>
 <script>
+
+  Vue.component('task-menu', {
+    props: ['menus'],
+    template: `
+    <div class="col-md-1">
+        <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
+          <button type="button" class="btn btn-secondary" v-on:click="onSelected(item.tag)" v-for="item in menus">{{ item.text }}</button>
+        </div>
+      </div>
+    `,
+    methods: {
+      onSelected(tag) {
+        this.$emit('click', tag);
+      }
+    }
+  })
+  
   Vue.component('task-item', {
     props: ['item', 'index', 'tag'],
     template: `
