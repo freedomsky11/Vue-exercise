@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/974aa47f8f9c5361c5233bd56be37db8ed765a09/currency-validator.js"></script>
+
+</head>
+
+<body>
+
+  <div id="app">
+    <app-layout>
+      <h1 slot="header">这里可能是一个页面标题</h1>
+
+      <p>主要内容的一个段落。</p>
+      <p>另一个主要段落。</p>
+
+      <p slot="footer">这里有一些联系信息</p>
+    </app-layout>
+  </div>
+
+</body>
+<script>
+  Vue.component('app-layout', {
+    template: `
+    <div class="container">
+      <header>
+        <slot name="header"></slot>
+      </header>
+      <main>
+        <slot></slot>
+      </main>
+      <footer>
+        <slot name="footer"></slot>
+      </footer>
+    </div>
+    `
+  })
+
+  var app = new Vue({
+    el: '#app'
+  })
+
+</script>
+
+</html>

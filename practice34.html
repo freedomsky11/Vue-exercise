@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/974aa47f8f9c5361c5233bd56be37db8ed765a09/currency-validator.js"></script>
+
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="parent">
+      <child>
+        <template slot-scope="props">
+          <span>hello from parent</span>
+          <span>{{ props.text }}</span>
+        </template>
+      </child>
+    </div>
+  </div>
+
+  <div id="app2">
+    <my-awesome-list :items="items">
+      <!-- 作用域插槽也可以是具名的 -->
+      <li slot="item" slot-scope="props" class="my-fancy-item">
+        {{ props.text }}
+      </li>
+    </my-awesome-list>
+
+    <div id="app3">
+        <my-awesome-list :items="items">
+          <!-- 作用域插槽也可以是具名的 -->
+          <li slot="item" slot-scope="{ text }" class="my-fancy-item">
+            {{ text }}
+          </li>
+        </my-awesome-list>
+
+</body>
+<script>
+  Vue.component('child', {
+    template: `
+    <div class="child">
+      <slot text="hello from child"></slot>
+    </div>
+    `
+  });
+
+  Vue.component('my-awesome-list', {
+    template: `
+    <ul>
+      <slot name="item"
+      v-for="item in items"
+      :text="item.text">
+      <!-- 这里写入备用内容 -->
+      </slot>
+    </ul>
+    `,
+    props: ['items']
+  });
+
+  var app = new Vue({
+    el: '#app'
+  })
+
+  var app2 = new Vue({
+    el: '#app2',
+    data: {
+      items: [{
+          name: 'xiaomin',
+          text: 'student'
+        },
+        {
+          name: 'xiaohua',
+          text: 'teach'
+        }
+      ]
+    }
+  })
+
+    var app3 = new Vue({
+    el: '#app3',
+    data: {
+      items: [{
+          name: 'xiaomin',
+          text: 'student'
+        },
+        {
+          name: 'xiaohua',
+          text: 'teach'
+        }
+      ]
+    }
+  })
+</script>
+
+</html>
