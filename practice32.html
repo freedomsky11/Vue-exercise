@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/974aa47f8f9c5361c5233bd56be37db8ed765a09/currency-validator.js"></script>
+
+</head>
+
+<body>
+
+  <div id="app0">
+    <div>
+      <h1>我是爷组件的标题</h1>
+      <app>
+        <my-component>
+          <p>这是一些初始内容</p>
+          <p>这是更多的初始内容</p>
+        </my-component>
+      </app>
+    </div>
+  </div>
+
+  <div id="app">
+    <div>
+      <h1>我是父组件的标题</h1>
+      <my-component>
+        <p>这是一些初始内容</p>
+        <p>这是更多的初始内容</p>
+      </my-component>
+    </div>
+  </div>
+
+  <div id="app2">
+    <div>
+      <h1>我是父组件的标题</h1>
+      <my-component>
+      </my-component>
+    </div>
+  </div>
+
+  <div id="app3">
+    <div>
+      <h1>我是父组件的标题</h1>
+      <my-component>
+        {{ message }}
+      </my-component>
+    </div>
+  </div>
+
+</body>
+<script>
+  Vue.component('app', {
+    template: `
+    <div>
+      <h1>我是父组件的标题</h1>
+      <slot>
+        只有在没有要分发的内容时才会显示。
+      </slot>
+    </div>
+    `
+  })
+
+  Vue.component('my-component', {
+    template: `
+    <div>
+      <h2>我是子组件的标题</h2>
+      <slot>
+        只有在没有要分发的内容时才会显示。
+      </slot>
+    </div>
+    `,
+    data: function () {
+      return {
+        message: '子组件文本'
+      }
+    }
+  })
+
+  var app0 = new Vue({
+    el: '#app0'
+  })
+
+  var app = new Vue({
+    el: '#app'
+  })
+
+  var app2 = new Vue({
+    el: '#app2'
+  })
+
+  var app3 = new Vue({
+    el: '#app3',
+    data: {
+      message: '父组件文本'
+    }
+  })
+</script>
+
+</html>
