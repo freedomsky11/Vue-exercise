@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+  </div>
+
+</body>
+<script>
+  const NotFound = {
+    template: '<p>Page not found</p>'
+  }
+  const Home = {
+    template: '<p>home page</p>'
+  }
+  const About = {
+    template: '<p>about page</p>'
+  }
+
+  const routes = {
+    '/': Home,
+    '/about': About
+  }
+
+  let app = new Vue({
+    el: '#app',
+    data: {
+      currentRoute: window.location.pathname
+    },
+    computed: {
+      ViewComponent() {
+        return routes[this.currentRoute] || NotFound
+      }
+    },
+    render(h) {
+      return h(this.ViewComponent)
+    }
+  })
+</script>
+
+</html>
