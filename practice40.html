@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+    <hello-world></hello-world>
+    <my-component inline-template>
+      <div>
+        <p>这些将作为组件自身的模板。</p>
+        <p>而非父组件透传进来的内容。</p>
+      </div>
+    </my-component>
+  </div>
+
+</body>
+<script type="text/x-template" id="hello-world-template">
+  <p>Hello hello hello</p>
+</script>
+<script>
+
+  Vue.component('hello-world', {
+    template: '#hello-world-template'
+  });
+
+  let app = new Vue({
+    el: '#app',
+    components: {
+      myComponent: {}
+    }
+  });
+</script>
+
+</html>
