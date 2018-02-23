@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/974aa47f8f9c5361c5233bd56be37db8ed765a09/currency-validator.js"></script>
+
+</head>
+
+<body>
+
+  <div id="app">
+    <componet :is="currentView"></componet>
+  </div>
+
+  <div id="example">
+    <componet :is="currentView" ref="child"></componet>
+  </div>
+
+</body>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      currentView: 'home'
+    },
+    components: {
+      home: {
+        template: '<p>home</p>'
+      },
+      posts: {
+        template: '<p>posts</p>'
+      },
+      archive: {
+        template: '<p>archive</p>'
+      }
+    }
+  })
+
+  var Home = {
+    data: function () {
+      return {
+        messge: '这是子组件的值'
+      }
+    },
+    template: '<p>Welcome home!</p>'
+  }
+
+  var vm = new Vue({
+    el: '#example',
+    data: {
+      currentView: Home
+    }
+  })
+
+  var child = vm.$refs.child;
+
+</script>
+
+</html>

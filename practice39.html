@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/974aa47f8f9c5361c5233bd56be37db8ed765a09/currency-validator.js"></script>
+
+</head>
+
+<body>
+
+  <div id="app">
+    <tree-folder :folder="item" v-for="item in tree"></tree-folder>
+  </div>
+
+</body>
+<script>
+  Vue.component('tree-folder', {
+    props: ['folder'],
+    template: `
+    <p>
+      <span>{{ folder.name }}</span>
+      <tree-folder-contents :children="folder.children"/>
+    </p>
+    `
+  })
+
+  Vue.component('tree-folder-contents', {
+    props: ['children'],
+    template: `
+    <ul>
+      <li v-for="child in children">
+        <tree-folder v-if="child.children" :folder="child"/>
+        <span v-else>{{ child.name }}</span>
+      </li>
+    </ul>
+    `
+  })
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      tree: [{
+        name: '中国',
+        children: [{
+          name: '广东',
+          children: [{ name: '广州',
+          children: [{ name: '天河',
+          children: [{ name: '珠江新城' }, { name: '花城广场' }, { name: '购书中心' }]
+           }, { name: '越秀' }, { name: '荔湾' }]
+           }, { name: '深圳' }, { name: '珠海' }]
+        }, {
+          name: '海南',
+          children: [{ name: '海口' }, { name: '三亚' }, { name: '文昌' }]
+        }, {
+          name: '江苏',
+          children: [{ name: '南京' }, { name: '盐城' }, { name: '无锡' }]
+        }]
+      }]
+    }
+  })
+</script>
+
+</html>
